@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function () {
+
+    Route::get('/', function () {
+     return view('admin.home.index');
+ })->name('admin');
+
+   require_once('user.php');
+   require_once('project.php');
+   require_once('team.php');
+
+
+   
+});
