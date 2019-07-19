@@ -35,7 +35,7 @@
           <ul class="nav navbar-nav">
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="{{route('logout')}}">
                 {{ __('Đăng xuất') }}
               </a>
             </li>
@@ -56,7 +56,7 @@
             <img src="{{url('/')}}/backend/images/user3-128x128.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>name</p>
+            <p>{!!}</p>
             <a href="#"><i class="fa fa-circle text-success"></i> Đang truy cập</a>
           </div>
         </div>
@@ -65,18 +65,18 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="header"><b style="color:white">User</b></li>
+          <li class="header"><b style="color:white"></b></li>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-picture-o"></i>
-              <span>tai-khoan</span>
+              <span>Tài khoản</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{route('tai-khoan')}}"><i class="fa fa-dashboard "></i> Danh sách tai-khoan</a></li>
-              <li><a href="{{route('them-tai-khoan')}}"><i class="fa fa-circle-o"></i> Thêm tai-khoan</a></li>
+              <li><a href="{{route('tai-khoan')}}"><i class="fa fa-dashboard "></i> Danh sách tài khoản</a></li>
+              <li><a href="{{route('them-tai-khoan')}}"><i class="fa fa-circle-o"></i> Thêm tài khoản</a></li>
 
             </ul>
           </li>

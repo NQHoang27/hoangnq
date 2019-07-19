@@ -7,14 +7,12 @@
 	</div>
 	<div class="panel-body">
 
-		<form action="{{route('them-project')}}" method="POST" role="form" enctype="multipart/form-data">
+		<form action="{{route('them-project')}}" method="POST" role="form">
 			{!! csrf_field() !!}
 			<div class="container">
 				<div class="row">
 					<div class="form-group">
-
 						<a href="{{route('project')}}" class="btn btn-success fa  fa-address-card"> Project</a>
-
 					</div>
 					<div class="col-md-11">
 						<div class="form-group">
@@ -26,12 +24,13 @@
 							</div>
 							@endif
 						</div>
-															
 						<div class="form-group">
-							<label for="">Chọn user</label>
-							<select name="status" id="inputStatus" class="form-control" required="required"  width="200px">
-								<option value="1">Long</option>
-								<option value="0">Quân</option>
+							<label for="">User</label>
+							<select name="id_user" id="inputStatus" class="form-control" required="required"  value="{{old('id_user')}}">
+								<option value="0">--Chọn user--</option>
+								@foreach($listUser as $item)
+								<option value="{{$item->id}}">{{$item->name}}</option>
+								@endforeach
 							</select>
 						</div>
 					</div>

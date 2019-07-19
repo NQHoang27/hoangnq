@@ -53,18 +53,25 @@
                         </div>
                         @endif
                     </div>
-                 
+
                     <div class="form-group">
                         <label for="">Team</label>
-                        <select name="parent" id="inputStatus" class="form-control" required="required"  value="{{old('parent')}}">
+                        <select name="id_teams" id="inputStatus" class="form-control" required="required"  value="{{old('id_teams')}}">
                             <option value="0">--Chọn team--</option>
-                      
+                            @foreach($listTeam as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+
                         </select>
+                    </div>
+
+                    <div class="form-inline text-center">
+                        <button type="submit" class="btn btn-primary">Thêm</button>
                     </div>
 
                 </div>
 
-               
+
             </form>
         </div>
     </div>

@@ -3,7 +3,7 @@
 @section('backend')
 <div class="panel panel-primary" style="margin:0px 10px;margin-top: 20px;">
 	<div class="panel-heading">
-		<h3 class="panel-title">Danh sách team</h3>
+		<h3 class="panel-title">Gồm có: <b>{{$team}} Team</b> </h3>
 	</div>
 	<div class="panel-body">
 		<form action="" class="form-inline"  role="form">
@@ -34,6 +34,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Tên</th>
+				<th>Leader</th>
 				
 				<th>Ngày tạo</th>
 				<th>Hành động</th>
@@ -47,12 +48,7 @@
 				
 				
 				<td>
-					@if($b->status==1)
-					{{"Hiển thị"}}
-					@else
-					{{"Ẩn"}}
-
-					@endif
+					{{$b->leader}}
 				</td>
 				<td>{!!$b->created_at!!}</td>
 				<td>
@@ -66,5 +62,8 @@
 			@endforeach
 		</tbody>
 	</table>
+</div>
+<div class="form-group text-center">
+	{{ $listTeam->links() }}
 </div>
 @stop()

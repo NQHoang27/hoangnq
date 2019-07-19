@@ -5,10 +5,10 @@
 
 <div class="panel panel-primary" style="margin:0 10px;margin-top: 20px">
     <div class="panel-heading">
-        <h3 class="panel-title form-inline"><i class="fa fa-users"> Thành viên: </i> <b>{{$users}}</b></h3>
+        <h3 class="panel-title form-inline"><i class="fa fa-users"> Thành viên: </i> <b>{{$countusers}}</b></h3>
     </div>
     <div class="panel-body">
-       <form action="" class="form-inline"  role="form">
+     <form action="" class="form-inline"  role="form">
         <div class="form-group">
             <input  class="form-control "  name="search" placeholder="Tìm kiếm theo tên">
         </div>
@@ -40,23 +40,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($listUser as $u)
+        @foreach($listUser as $item)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>{!!$u->name!!}</td>
-            <td>{!!$u->email!!}</td>
+            <td>{!!$item->name!!}</td>
+            <td>{!!$item->email!!}</td>
             <td>
-                team 1
+             {{$item->id_teams}}
             </td>
-           
-          
-         
-            <td>{{$u->created_at}}</td>
+            <td>{{$item->created_at}}</td>
             <td>
-                <a href="{{route('sua-tai-khoan',$u->id)}}" title="" class="btn btn-primary">Sửa</a>
+                <a href="{{route('sua-tai-khoan',$item->id)}}" title="" class="btn btn-primary">Sửa</a>
                 {!! csrf_field() !!}
                 {{method_field('DELETE')}}
-                <a href="{{route('xoa-tai-khoan',$u->id)}}"  class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không?')"><i class="fa fa-trash"></i></a>
+                <a href="{{route('xoa-tai-khoan',$item->id)}}"  class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không?')"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
         @endforeach

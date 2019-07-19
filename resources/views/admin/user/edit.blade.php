@@ -37,6 +37,16 @@
 					@endif
 				</div>
 				<div class="form-group">
+					<label for="">Team</label>
+					<select name="id_teams" id="inputStatus" class="form-control" required="required"  value="{{$listUsers->id_teams}}">
+						<option value="0">--Chọn team--</option>
+						@foreach($listTeam as $item)
+						<option value="{{$item->id}}">{{$item->name}}</option>
+						@endforeach
+
+					</select>
+				</div>
+				<div class="form-group">
 					<label for="">Mật khẩu mới</label>
 					<input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" >
 					@if($errors->has('password'))
@@ -55,13 +65,7 @@
 					@endif
 				</div>
 
-				<div class="form-group">
-					<label for="">Team</label>
-					<select name="parent" id="inputStatus" class="form-control" required="required"  value="{{old('parent')}}">
-						<option value="0">--Chọn team--</option>
-						
-					</select>
-				</div>
+
 				<div class="text-center panel-footer">
 					<button type="submit" class="btn btn-primary">Cập nhật</button>
 				</div>

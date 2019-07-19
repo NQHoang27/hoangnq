@@ -12,20 +12,25 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin','middleware'=>['check.team','auth']], function () {
 
 
-    Route::get('/', function () {
-     return view('admin.home.index');
- })->name('admin');
+	Route::get('/', function () {
+		return view('admin.home.index');
+	})->name('admin');
 
-   require_once('user.php');
-   require_once('team.php');
-   require_once('project.php');
+	require_once('user.php');
+	require_once('team.php');
+	require_once('project.php');
 
 
-   
+
 });
+Auth::routes();
+Route::get('/logout', function () {
+	Auth::logout();
+	return redirect()->back();
+})->name('logout');

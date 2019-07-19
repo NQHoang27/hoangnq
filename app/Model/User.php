@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email','level', 'password','gender','phone','birthday',
+        'name', 'email', 'password','id_teams',
     ];
 
     /**
@@ -35,8 +35,10 @@ class User extends Authenticatable
             return $query->where('name','like','%'.request()->search.'%');
         }
     }
-
-    
+    public function team()
+    {
+        return $this->belongTo('App\Model\Team');
+    }
 
     protected $hidden = [
         'password', 'remember_token',

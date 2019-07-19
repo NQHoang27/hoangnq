@@ -30,7 +30,7 @@
 					</div>
 						<div class="form-group">
 						<label for="">Tên leader</label>
-						<input type="text" class="form-control" name="name" placeholder="Nhập tên leader" >
+						<input type="text" class="form-control" name="leader" placeholder="Nhập tên leader" >
 
 						@if($errors->has('leader'))
 						<div class="help-block" style="color: red">
