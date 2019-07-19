@@ -7,9 +7,9 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>2</h3>
+              <h3>@php $users = DB::table('users')->count();echo $users; @endphp</h3>
 
-              <h4>Team</h4>
+              <h4>User</h4>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -21,9 +21,9 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53</h3>
+              <h3>@php $teams = DB::table('teams')->count();echo $teams; @endphp</h3>
 
-              <h4>User</h4>
+              <h4>Teams</h4>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -35,7 +35,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3>@php $projects = DB::table('projects')->count();echo $projects; @endphp</h3>
 
               <h4>Project</h4>
             </div>

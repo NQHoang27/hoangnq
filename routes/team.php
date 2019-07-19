@@ -1,4 +1,5 @@
 <?php 
+
 Route::get('team','TeamController@index')->name('team');
 Route::get('them-team','TeamController@create')->name('them-team');
 Route::post('them-team','TeamController@store')->name('them-team');

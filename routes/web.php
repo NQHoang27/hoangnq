@@ -16,8 +16,6 @@ Route::get('/', function () {
 });
 
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin','middleware'=>['check.team','auth']], function () {
-
-
 	Route::get('/', function () {
 		return view('admin.home.index');
 	})->name('admin');
@@ -25,8 +23,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin','middleware'=>['chec
 	require_once('user.php');
 	require_once('team.php');
 	require_once('project.php');
-
-
 
 });
 Auth::routes();
