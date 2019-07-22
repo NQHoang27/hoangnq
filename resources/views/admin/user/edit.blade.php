@@ -15,7 +15,7 @@
 	@endif
 	<div class="panel-body">
 		<div class="row">
-			<form action="{{route('tai-khoan.update',$listUsers->id)}}" method="POST" role="form">
+			<form action="{{route('user.update',$listUsers->id)}}" method="POST" role="form">
 				{!! csrf_field() !!}
 				{!! method_field('PUT') !!}
 				<div class="col-md-6"><div class="form-group">

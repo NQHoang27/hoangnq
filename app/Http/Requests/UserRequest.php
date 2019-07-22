@@ -25,10 +25,11 @@ class UserRequest extends FormRequest
     {
         return [
             
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email,'.$this->id,
-            'password'=>'required|min:6',
-            're_password'=>'required|same:password',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$this->id,
+            'password' => 'required|min:6',
+            're_password' => 'required|same:password',
+            'id_teams' => 'required',
         ];
     }
 }

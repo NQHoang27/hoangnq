@@ -75,8 +75,8 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{route('tai-khoan')}}"><i class="fa fa-dashboard "></i> Danh sách tài khoản</a></li>
-              <li><a href="{{route('them-tai-khoan')}}"><i class="fa fa-circle-o"></i> Thêm tài khoản</a></li>
+              <li><a href="{{route('user.index')}}"><i class="fa fa-dashboard "></i> Danh sách tài khoản</a></li>
+              <li><a href="{{route('user.create')}}"><i class="fa fa-circle-o"></i> Thêm tài khoản</a></li>
 
             </ul>
           </li>
@@ -110,7 +110,7 @@
 
             </ul>
           </li>
-              </ul>
+        </ul>
       </section>
       <!-- /.sidebar -->
     </aside>
@@ -120,27 +120,23 @@
         <h1>
          Trang admin
        </h1>
-
      </section>
-
-    
-
      @yield('backend')
 
      <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
    <footer class="main-footer">
-  </footer>
-  <!-- jQuery 3 -->
-  <script type="text/javascript" src="{{url('/')}}/backend/js/jquery.min.js"></script>
+   </footer>
+   <!-- jQuery 3 -->
+   <script type="text/javascript" src="{{url('/')}}/backend/js/jquery.min.js"></script>
 
-  <script type="text/javascript" src="{{url('/')}}/backend/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="{{url('/')}}/backend/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="{{url('/')}}/backend/js/adminlte.min.js"></script>
+   <script type="text/javascript" src="{{url('/')}}/backend/js/adminlte.min.js"></script>
 
-  <script type="text/javascript" src="{{url('/')}}/backend/js/fastclick.js"></script>
-  <script>
+   <script type="text/javascript" src="{{url('/')}}/backend/js/fastclick.js"></script>
+   <script>
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

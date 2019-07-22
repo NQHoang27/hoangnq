@@ -15,8 +15,7 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin','middleware'=>['check.team','auth']], function () {
-
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['check.team','auth']], function () {
 
 	Route::get('/', function () {
 		return view('admin.home.index');
