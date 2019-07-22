@@ -24,9 +24,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['c
 	require_once('user.php');
 	require_once('team.php');
 	require_once('project.php');
-
-
-
 });
 Auth::routes();
 Route::get('/logout', function () {

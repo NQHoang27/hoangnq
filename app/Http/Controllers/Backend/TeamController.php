@@ -20,6 +20,7 @@ class TeamController extends Controller
       $listTeam = Team::orderBy('id', 'DESC')->search()->paginate(6);
       return view('admin.team.list', compact('listTeam', 'team'));
     }
+
     /**
      * Create a newly created resource in storage.
      *
@@ -31,6 +32,7 @@ class TeamController extends Controller
       $listTeam = Team::all();
       return view('admin.team.add', compact('listTeam'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,6 +47,7 @@ class TeamController extends Controller
       $team->save();
       return redirect()->route('team')->with(['level' => 'success', 'message' => 'Thêm team thành công!']);
     }
+
     /**
      * Edit the specified resource in storage.
      *
@@ -57,6 +60,7 @@ class TeamController extends Controller
       $editTeams = Team::find($id);
       return view('admin.team.edit', ['editTeams' => $editTeams]);
     }
+
      /**
      * Update the specified resource in storage.
      *
@@ -73,6 +77,7 @@ class TeamController extends Controller
       ]);
       return redirect()->route('team')->with(['level' => 'success', 'message' => 'Cập nhật team thành công!']);
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -84,4 +89,4 @@ class TeamController extends Controller
       Team::destroy($id);
       return redirect()->route('team')->with(['level' => 'success', 'message' => 'Xóa team thành công!']);
     }
-  }
+}

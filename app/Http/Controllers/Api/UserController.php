@@ -14,91 +14,94 @@ use DB;
 
 class UserController extends Controller
 {
-  public $successStatus = 200;
+    public $successStatus = 200;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
-      $countusers = DB::table('users')->count();
-      $listUser = User::orderBy('id', 'DESC')->search()->paginate(6);
-      return view('admin.user.list', compact('listUser', 'countusers'));
+        $countusers = DB::table('users')->count();
+        $listUser = User::orderBy('id', 'DESC')->search()->paginate(6);
+        return view('admin.user.list', compact('listUser', 'countusers'));
     }
+
     /**
-     * Create a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    * Create a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
     public function create()
     {
-      $listTeam = Team::all();
-      $listUser = User::all();
-      return view('admin.user.add', compact('listUser','listTeam'));
+        $listTeam = Team::all();
+        $listUser = User::all();
+        return view('admin.user.add', compact('listUser','listTeam'));
     }
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-     public function store(UserRequest $request)
-     {
 
-      $user = new User();
-      $user->name = $request->name;
-      $user->email = $request->email;
-      $user->password = Hash::make($request->password);
-      $user->id_teams = $request->id_teams;
-      $user->remember_token = $request->_token;
-      $user->save();
-
-
-      return redirect()->route('user.index')->with(['level' => 'success', 'message' => 'Thêm mới người dùng thành công!']);
-    }
     /**
-     * Edit the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\User  $user
-     * @return \Illuminate\Http\Response
-     */
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(UserRequest $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->id_teams = $request->id_teams;
+        $user->save();
+        return redirect()->route('user.index')->with(['level' => 'success', 'message' => 'Thêm mới người dùng thành công!']);
+    }
+
+    /**
+    * Edit the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Model\User  $user
+    * @return \Illuminate\Http\Response
+    */
     public function edit($id)
     {
-      $listUsers = User::find($id);
-      return view('admin.user.edit', ['listUsers' => $listUsers, 'listTeam' => Team::where('id', '<>', $id)->get()]);
+        $listUsers = User::find($id);
+        return view('admin.user.edit', ['listUsers' => $listUsers, 'listTeam' => Team::where('id', '<>', $id)->get()]);
     }
+
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\User  $user
-     * @return \Illuminate\Http\Response
-     */
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Model\User  $user
+    * @return \Illuminate\Http\Response
+    */
     public function update($id, UserRequest $request)
     {
-      $user = User::find($id);  
-      $user->update([       
-        'name' => $request->get('name'), 
-        'email' => $request->get('email'),
-        'password' => bcrypt($request->password),
-        'id_teams' => $request->get('id_teams'),
-      ]);
-      return redirect()->route('user.index')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
+        $user = User::find($id);  
+        $user->update([       
+            'name' => $request->get('name'), 
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->password),
+            'id_teams' => $request->get('id_teams'),
+        ]);
+        return redirect()->route('user.index')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
     }
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\User  $user
-     * @return \Illuminate\Http\Response
-     */
+    * Remove the specified resource from storage.
+    *
+    * @param  \App\Model\User  $user
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id)
     {
-      User::destroy($id);
-      return redirect()->route('user.index')->with(['level' => 'success', 'message' => 'Xóa tài khoản thành công!']);
+        User::destroy($id);
+        return redirect()->route('user.index')->with(['level' => 'success', 'message' => 'Xóa tài khoản thành công!']);
     }
+
     //     /** 
     //      * login api 
     //      * 
@@ -147,4 +150,4 @@ class UserController extends Controller
     //     $user = Auth::user(); 
     //     return response()->json(['success' => $user], $this-> successStatus); 
     // } 
-  }
+}
