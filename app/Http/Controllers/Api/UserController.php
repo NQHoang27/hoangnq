@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Repositories\User\UserRepositoryInterface;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth; 
 use App\Http\Controllers\Controller;
@@ -15,7 +16,12 @@ use DB;
 class UserController extends Controller
 {
     public $successStatus = 200;
+    private $userRepository;
 
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
     /**
     * Display a listing of the resource.
     *
@@ -23,9 +29,10 @@ class UserController extends Controller
     */
     public function index()
     {
-        $countusers = DB::table('users')->count();
-        $listUser = User::orderBy('id', 'DESC')->search()->paginate(6);
-        return view('admin.user.list', compact('listUser', 'countusers'));
+        $countUsers = DB::table('users')->count();
+        $listUser = $this->userRepository->getAll();
+        dd($listUser);
+        return view('admin.user.list', compact('listUser', 'countUsers'));
     }
 
     /**

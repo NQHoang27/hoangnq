@@ -2,7 +2,7 @@
 @section('backend')
 <div class="panel panel-primary" style="margin:0 10px;margin-top: 20px">
     <div class="panel-heading">
-        <h3 class="panel-title form-inline"><i class="fa fa-users"> Thành viên: </i> <b>$countUser</b></h3>
+        <h3 class="panel-title form-inline"><i class="fa fa-users"> Thành viên: </i> <b>{{$countUsers}}</b></h3>
     </div>
     <div class="panel-body">
      <form action="" class="form-inline"  role="form">

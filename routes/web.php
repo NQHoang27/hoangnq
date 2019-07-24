@@ -15,8 +15,8 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['check.team','auth']], function () {
-
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['check.team','locale','auth']], function () {
+	Route::get('change-language/{language}', 'LanguageController@changeLanguage')->name('user.change-language');
 	Route::get('/', function () {
 		return view('admin.home.index');
 	})->name('admin');

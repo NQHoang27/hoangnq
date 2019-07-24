@@ -19,9 +19,9 @@ class UserController extends Controller
     */
     public function index()
     {
-      $countusers = DB::table('users')->count();
-      $listUser = User::orderBy('id', 'DESC')->search()->paginate(6);
-      return view('admin.user.list', compact('listUser', 'countusers'));
+      $countUsers = DB::table('users')->count();
+      $listUser = User::where('id_teams','>=',0)->search()->paginate(6);
+      return view('admin.user.list', compact('listUser', 'countUsers'));
     }
 
     public function create()
@@ -91,4 +91,4 @@ class UserController extends Controller
       User::destroy($id);
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Xóa tài khoản thành công!']);
     }  
-}
+  }

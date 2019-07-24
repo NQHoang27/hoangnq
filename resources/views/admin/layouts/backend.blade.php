@@ -41,6 +41,8 @@
             </li>
             <li>
               <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              <a href="{!! route('user.change-language', ['en']) !!}">English</a>
+              <a href="{!! route('user.change-language', ['vi']) !!}">Vietnam</a>
             </li>
           </ul>
         </div>
@@ -60,9 +62,6 @@
             <a href="#"><i class="fa fa-circle text-success"></i> Đang truy cập</a>
           </div>
         </div>
-        <!-- search form -->
-
-        <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header"><b style="color:white"></b></li>
