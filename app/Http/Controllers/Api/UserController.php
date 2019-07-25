@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth; 
 use App\Http\Controllers\Controller;
@@ -16,11 +16,11 @@ use DB;
 class UserController extends Controller
 {
     public $successStatus = 200;
-    private $userRepository;
+    protected $user;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepository $user)
     {
-        $this->userRepository = $userRepository;
+        $this->user = $user;
     }
     /**
     * Display a listing of the resource.
@@ -29,9 +29,9 @@ class UserController extends Controller
     */
     public function index()
     {
+        dd("hoangnq");
         $countUsers = DB::table('users')->count();
-        $listUser = $this->userRepository->getAll();
-        dd($listUser);
+        $listUser = $this->user->getAll();
         return view('admin.user.list', compact('listUser', 'countUsers'));
     }
 

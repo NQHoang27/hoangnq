@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Repositories\Contracts\IProjectRepository;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Controllers\Controller;
 use App\Model\Project;
@@ -11,6 +12,21 @@ use DB;
 class ProjectController extends Controller
 {
     /**
+    * [$projetc description]
+    * @var [type]
+    */
+    protected $project;
+
+    /**
+    * [__construct description]
+    * @param IUserRepository $projetc [description]
+    */
+    public function __construct(IProjectRepository $project)
+    {
+      $this->project = $project;
+    }
+
+    /**
     * Display a listing of the resource.
     *
     * @return \Illuminate\Http\Response
@@ -18,7 +34,7 @@ class ProjectController extends Controller
     public function index()
     { 
       $countProject = DB::table('projects')->count();
-      $listProject = Project::orderBy('id', 'DESC')->search()->paginate(6);
+      $listProject = $this->project->getAll();
       return view('admin.project.list', compact('listProject', 'countProject'));
     }
 
@@ -43,11 +59,9 @@ class ProjectController extends Controller
     */
     public function store(ProjectRequest $request)
     {
-      $project = new Project;
-      $project->name = $request->name;
-      $project->id_user = $request->id_user;    
-      $project->save();
-      return redirect()->route('project')->with(['level' => 'success', 'message' => 'Thêm mới project thành công!']);
+      $data = $request->all();
+      $this->project->create($data);
+      return redirect()->route('project')->with(['level' => 'success', 'message' => 'Thêm dự án thành công!']);
     }
     /**
     * Update the specified resource in storage.
@@ -58,10 +72,10 @@ class ProjectController extends Controller
     */
     public function edit($id)
     {
-      $listUser = User::all();
-      $listProjects = Project::find($id);
-      return view('admin.project.edit', ['listProjects' => $listProjects],['listUser' => $listUser]);
+      $listProjects = $this->project->find($id);
+      return view('admin.project.edit', ['listProjects' => $listProjects, 'listUser' => User::where('id', '<>', $id)->get()]);
     }
+
     /**
     * Update the specified resource in storage.
     *
@@ -71,13 +85,11 @@ class ProjectController extends Controller
     */
     public function update($id, ProjectRequest $request)
     {  
-      $project = Project::find($id);  
-      $project->update([       
-        'name' => $request->get('name'), 
-        'id_user' => $request->get('id_user'),
-      ]);
+      $data = $request->all();
+      $this->project->update($id, $data);
       return redirect()->route('project')->with(['level' => 'success', 'message' => 'Cập nhật dự án thành công!']);
     }
+
     /**
     * Remove the specified resource from storage.
     *
@@ -86,7 +98,7 @@ class ProjectController extends Controller
     */
     public function destroy($id)
     {
-      Project::destroy($id);
+      $this->project->delete($id);
       return redirect()->route('project')->with(['level' => 'success', 'message' => 'Xóa dự án thành công!']);
     }
-}
+  }

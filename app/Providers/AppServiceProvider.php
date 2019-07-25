@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Support\ServiceProvider;
-use App\Http\Repositories\RepositoryInterface;
-//use App\Http\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Contracts\IUserRepository;
+use App\Repositories\Contracts\IProjectRepository;
+use App\Repositories\Contracts\ITeamRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\ProjectRepository;
+use App\Repositories\TeamRepository;
 use App\Http\Repositories\EloquentRepository;
-//use App\Http\Repositories\User\UserEloquentRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        $this->app->singleton(RepositoryInterface::class, EloquentRepository::class);
+        $this->app->bind(IUserRepository::class, UserRepository::class);
+        $this->app->bind(IProjectRepository::class, ProjectRepository::class);
+        $this->app->bind(ITeamRepository::class, TeamRepository::class);
+        
     }
 }

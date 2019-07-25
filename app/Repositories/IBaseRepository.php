@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface RepositoryInterface
+interface IBaseRepository
 {
     /**
      * Get all
@@ -38,4 +38,5 @@ interface RepositoryInterface
      * @return mixed
      */
     public function delete($id);
+
 }

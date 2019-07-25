@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Repositories\Contracts\ITeamRepository;
 use App\Http\Requests\TeamRequest;
 use App\Http\Controllers\Controller;
 use App\Model\Team;
@@ -10,6 +11,21 @@ use DB;
 class TeamController extends Controller
 {
     /**
+    * [$team description]
+    * @var [type]
+    */
+    protected $team;
+
+    /**
+    * [__construct description]
+    * @param ITeamRepository $team [description]
+    */
+    public function __construct(ITeamRepository $team)
+    {
+      $this->team = $team;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -17,7 +33,7 @@ class TeamController extends Controller
     public function index()
     {     
       $team = DB::table('teams')->count();
-      $listTeam = Team::orderBy('id', 'DESC')->search()->paginate(6);
+      $listTeam = $this->team->getAll();
       return view('admin.team.list', compact('listTeam', 'team'));
     }
 
@@ -41,10 +57,8 @@ class TeamController extends Controller
      */
     public function store(TeamRequest $request)
     {
-      $team = new Team();
-      $team->name = $request->name;
-      $team->leader = $request->leader;
-      $team->save();
+      $data = $request->all();
+      $this->team->create($data);
       return redirect()->route('team')->with(['level' => 'success', 'message' => 'Thêm team thành công!']);
     }
 
@@ -57,24 +71,21 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-      $editTeams = Team::find($id);
+      $editTeams = $this->team->find($id);
       return view('admin.team.edit', ['editTeams' => $editTeams]);
     }
 
-     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Team  $id
-     * @return \Illuminate\Http\Response
-     */    
-     public function update($id, TeamRequest $request)
-     {  
-      $team = Team::find($id);  
-      $team->update([       
-        'name' => $request->get('name'),         
-        'leader' => $request->get('leader'),
-      ]);
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Model\Team  $id
+    * @return \Illuminate\Http\Response
+    */    
+    public function update($id, TeamRequest $request)
+    {  
+      $data = $request->all();
+      $this->team->update($id, $data);
       return redirect()->route('team')->with(['level' => 'success', 'message' => 'Cập nhật team thành công!']);
     }
 
@@ -86,7 +97,7 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-      Team::destroy($id);
+      $this->team->delete($id);
       return redirect()->route('team')->with(['level' => 'success', 'message' => 'Xóa team thành công!']);
     }
-}
+  }

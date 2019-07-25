@@ -2,17 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Contracts\IUserRepository;
 
-abstract class EloquentRepository implements RepositoryInterface
-
+abstract class AbstractRepository implements IBaseRepository
+{
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $_model;
 
     /**
-     * EloquentRepository constructor.
+     * AbstractRepository constructor.
      */
     public function __construct()
     {
@@ -42,7 +42,7 @@ abstract class EloquentRepository implements RepositoryInterface
     public function getAll()
     {
 
-    	return $this->_model->all();
+    	return $this->_model->orderBy('id','DESC')->paginate(10);
     }
 
     /**

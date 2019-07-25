@@ -26,6 +26,7 @@
 				<th>STT</th>
 				<th>Tên projece</th>
 				<th>User</th>
+				<th>Ngày tạo</th>
 				<th>Hành động</th>
 			</tr>
 		</thead>
@@ -33,12 +34,9 @@
 			@foreach($listProject as $item)
 			<tr>
 				<td>{{$loop->iteration}}</td>
-				<td>{!! $item->name !!}</td>
-				
-				<td>
-					{{$item->id_user}}
-
-				</td>
+				<td>{!! $item->name !!}</td>				
+				<td>{{$item->id_user}}</td>
+				<td>{{$item->created_at}}</td>
 				<td>
 					<a href="{{route('sua-project',$item->id)}}" title="" class="label label-primary fa  fa-pencil">Sửa</a>
 					{!! csrf_field() !!}

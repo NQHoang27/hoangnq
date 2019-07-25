@@ -35,8 +35,10 @@ class User extends Authenticatable
             return $query->where('name', 'like', '%'. request()->search. '%');
         }
     }
+    
     /**
-     * 
+     * [team belongto user]
+     * @return mixed
      */
     public function team()
     {

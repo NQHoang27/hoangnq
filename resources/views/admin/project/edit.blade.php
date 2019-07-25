@@ -35,9 +35,9 @@
 
 			</div>
 			<div class="form-group">
-				<label for="">User</label>
-				<select name="id_user" id="inputStatus" class="form-control" required="required"  value="{{old('id_user')}}">
-					<option value="0">--Chọn user--</option>
+				<label for="">Thành viên</label>
+				<select name="id_user" id="inputStatus" class="form-control" required="required"  value="{{$listProjects->id_user}}">
+					<option value="{{$listProjects->id_user}}">--Chọn user--</option>
 					@foreach($listUser as $item)
 					<option value="{{$item->id}}">{{$item->name}}</option>
 					@endforeach
@@ -45,7 +45,7 @@
 				</select>
 			</div>
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">Sửa</button>
+				<button type="submit" class="btn btn-primary">Cập nhật</button>
 			</div>
 		</form>
 	</div>
