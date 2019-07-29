@@ -14,7 +14,7 @@
     @endif
     <div class="panel-body">
         <div class="row">
-            <form action="{{route('user.store')}}" method="POST" role="form">
+            <form action="{{route('them-tai-khoan')}}" method="POST" role="form">
                 {!! csrf_field()!!}
                 <div class="col-md-9">
                     <div class="form-group">

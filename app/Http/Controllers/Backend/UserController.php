@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-
+use App\Repositories\Contracts\IUserRepository;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Model\User;
@@ -12,6 +12,27 @@ use DB;
 
 class UserController extends Controller
 {
+  /**
+   * [$successStatus description]
+   * @var integer
+   */
+  public $successStatus = 200;
+
+  /**
+   * [$user description]
+   * @var [type]
+   */
+  protected $user;
+
+  /**
+   * [__construct description]
+   * @param IUserRepository $user [description]
+   */
+  public function __construct(IUserRepository $user)
+  {
+    $this->user = $user;
+  }
+  
     /**
     * Display a listing of the resource.
     *
@@ -20,10 +41,14 @@ class UserController extends Controller
     public function index()
     {
       $countUsers = DB::table('users')->count();
-      $listUser = User::where('id_teams','>=',0)->search()->paginate(6);
+      $listUser = $this->user->getAll();
       return view('admin.user.list', compact('listUser', 'countUsers'));
     }
 
+    /**
+     * [create user]
+     * @return mixed
+     */
     public function create()
     {
       $listTeam = Team::all();
@@ -39,13 +64,9 @@ class UserController extends Controller
     */
     public function store(UserRequest $request)
     {
-      $user = new User();
-      $user->name = $request->name;
-      $user->email = $request->email;
-      $user->password = Hash::make($request->password);
-      $user->id_teams = $request->id_teams;
-      $user->save();
-      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Thêm mới người dùng thành công!']);
+      $data = $request->all();
+      $this->user->create($data);
+      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Thêm mới tài khoản thành công!']);
     }
 
     /**
@@ -57,7 +78,7 @@ class UserController extends Controller
     */
     public function edit($id)
     {
-      $listUsers = User::find($id);
+      $listUsers = $this->user->find($id);
       return view('admin.user.edit', ['listUsers' => $listUsers, 'listTeam' => Team::where('id', '<>', $id)->get()]);
     }
 
@@ -70,14 +91,9 @@ class UserController extends Controller
     */
     public function update($id, UserRequest $request)
     {  
-      $user = User::find($id);  
-      $user->update([       
-        'name' => $request->get('name'), 
-        'email' => $request->get('email'),
-        'password' => bcrypt($request->password),
-        'id_teams' => $request->get('id_teams'),
-      ]);
-      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
+      $data = $request->all();
+      $this->user->createOrUpdate($id, $data);
+      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật tài khoản thành công!']);
     }
 
     /**
@@ -88,7 +104,7 @@ class UserController extends Controller
     */
     public function destroy($id)
     {
-      User::destroy($id);
+      $this->user->delete($id);
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Xóa tài khoản thành công!']);
     }  
   }
