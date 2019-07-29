@@ -16,7 +16,7 @@
 	<div class="panel-body">
 		<div class="form-group">
 
-			<a href="{{route('project')}}" class="btn btn-success fa  fa-address-card"> Tin Tức</a>
+			<a href="{{route('project')}}" class="btn btn-success fa  fa-address-card">Dự án</a>
 
 		</div>
 		<form action="{{route('project.update',$listProjects->id)}}" method="POST" role="form">
@@ -35,10 +35,13 @@
 
 			</div>
 			<div class="form-group">
-				<label for="">Chọn user</label>
-				<select name="status" id="inputStatus" class="form-control" required="required">
-					<option value="1" {{$listProjects->status==1? "selected": ""}}></option>
-					<option value="0"  {{$listProjects->status==0? "selected": ""}}></option>
+				<label for="">User</label>
+				<select name="id_user" id="inputStatus" class="form-control" required="required"  value="{{old('id_user')}}">
+					<option value="0">--Chọn user--</option>
+					@foreach($listUser as $item)
+					<option value="{{$item->id}}">{{$item->name}}</option>
+					@endforeach
+
 				</select>
 			</div>
 			<div class="text-center">

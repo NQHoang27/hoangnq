@@ -2,133 +2,93 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
+
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Model\User;
+use App\Model\Team;
 use Hash;
 use DB;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
-      
-      $users = DB::table('users')->count();
-      $listUser = User::orderBy('id','DESC')->search()->paginate(6);
-      return view('admin.user.list',compact('listUser','users'));
+      $countUsers = DB::table('users')->count();
+      $listUser = User::where('id_teams','>=',0)->search()->paginate(6);
+      return view('admin.user.list', compact('listUser', 'countUsers'));
+    }
+
+    public function create()
+    {
+      $listTeam = Team::all();
+      $listUser = User::all();
+      return view('admin.user.add', compact('listUser', 'listTeam'));
     }
 
     /**
-     Thêm mới người dùng
-     */
-     public function add(Request $request)
-     {
-      $listUser=User::all();
-      return view('admin.user.add',compact('listUser'));
-    }
-
-    /**
-     Thêm mới người dùng
-     */
-     public function store(Request $request)
-     {
-
-
-
-      $this->validate($request,[
-        'name'=>'required',
-        'email'=>'required|email|unique:users,email',
-        'password'=>'required|min:6',
-        're_password'=>'required|same:password',
-        'id_teams'=>'required',
-
-
-      ],[
-        'name.required'=>'Tên người dùng không được để trống!',
-        'email.required'=>'Email không được để trống!',
-        'email.unique'=>'Tên email đã bị trùng!',
-        'email.email'=>'Email không đúng định dạng!',
-        'password.required'=>'Mật khẩu không được để trống!',
-        'password.min'=>'Mật khẩu ít nhất có 6 ký tự!',
-        're_password.required'=>'Phải nhập lại mật khẩu!',
-        're_password.same'=>'Mật khẩu nhập lại không trùng khớp!',
-        'id_teams.required'=>'team không được để trống!',
-
-
-
-
-      ]);
-      $user= new User();
-      $user->name=$request->name;
-      $user->email=$request->email;
-      $user->password=Hash::make($request->password);
-      $user->id_teams=$request->id_teams;
-      $user->remember_token=$request->_token;
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(UserRequest $request)
+    {
+      $user = new User();
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->password = Hash::make($request->password);
+      $user->id_teams = $request->id_teams;
       $user->save();
-
-
-      return redirect()->route('tai-khoan')->with(['level'=>'success','message'=>'Thêm mới người dùng thành công!']);
+      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Thêm mới người dùng thành công!']);
     }
 
     /**
-     Sửa thông tin người dùng
-     */
-     public function edit($id)
-     {
-       $listUsers = User::find($id);
-
-
-       return view('admin.user.edit',['listUsers'=>$listUsers]);
-     }
+    * Edit the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Model\User  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function edit($id)
+    {
+      $listUsers = User::find($id);
+      return view('admin.user.edit', ['listUsers' => $listUsers, 'listTeam' => Team::where('id', '<>', $id)->get()]);
+    }
 
     /**
-    Cập nhật thông tin người dùng
-     */
-    public function update( $id,Request $request)
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Model\User  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update($id, UserRequest $request)
     {  
-      $this->validate($request,[
-        'name'=>'required',
-        'email'=>'required|email|unique:users,email,'.$id,
-        'password'=>'required|min:6',
-        're_password'=>'required|same:password',
-        'team'=>'required'
-      ],[
-        'name.required'=>'Tên người dùng không được để trống!',
-        'email.required'=>'Email không được để trống!',
-        'email.unique'=>'Tên email đã bị trùng!',
-        'email.email'=>'Email không đúng định dạng!',
-        'password.required'=>'Mật khẩu không được để trống!',
-        'password.min'=>'Mật khẩu ít nhất có 6 ký tự!',
-        're_password.required'=>'Phải nhập lại mật khẩu!',
-        're_password.same'=>'Mật khẩu nhập lại không trùng khớp!',
-        'team.required'=>'team không được để trống!',
-
-      ]); 
       $user = User::find($id);  
       $user->update([       
         'name' => $request->get('name'), 
-        'email'=> $request->get('email'),
-        'password'=>bcrypt($request->password),
-        'id_teams'=> $request->get('id_teams'),
-                 ]);
-
-
-   
-
-      return redirect()->route('tai-khoan')->with(['level'=>'success','message'=>'Cập nhật thành viên thành công!']);
+        'email' => $request->get('email'),
+        'password' => bcrypt($request->password),
+        'id_teams' => $request->get('id_teams'),
+      ]);
+      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
     }
 
     /**
-    Xóa người dùng
-     */
+    * Remove the specified resource from storage.
+    *
+    * @param  \App\Model\User  $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id)
     {
       User::destroy($id);
-      return redirect()->route('tai-khoan')->with(['level'=>'success','message'=>'Xóa tài khoản thành công!']);
-    }
+      return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Xóa tài khoản thành công!']);
+    }  
   }

@@ -35,12 +35,14 @@
           <ul class="nav navbar-nav">
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="{{route('logout')}}">
                 {{ __('Đăng xuất') }}
               </a>
             </li>
             <li>
               <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              <a href="{!! route('user.change-language', ['en']) !!}">English</a>
+              <a href="{!! route('user.change-language', ['vi']) !!}">Vietnam</a>
             </li>
           </ul>
         </div>
@@ -56,27 +58,24 @@
             <img src="{{url('/')}}/backend/images/user3-128x128.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>name</p>
+            <p>{!!}</p>
             <a href="#"><i class="fa fa-circle text-success"></i> Đang truy cập</a>
           </div>
         </div>
-        <!-- search form -->
-
-        <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="header"><b style="color:white">User</b></li>
+          <li class="header"><b style="color:white"></b></li>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-picture-o"></i>
-              <span>tai-khoan</span>
+              <span>Tài khoản</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{route('tai-khoan')}}"><i class="fa fa-dashboard "></i> Danh sách tai-khoan</a></li>
-              <li><a href="{{route('them-tai-khoan')}}"><i class="fa fa-circle-o"></i> Thêm tai-khoan</a></li>
+              <li><a href="{{route('user.index')}}"><i class="fa fa-dashboard "></i> Danh sách tài khoản</a></li>
+              <li><a href="{{route('user.create')}}"><i class="fa fa-circle-o"></i> Thêm tài khoản</a></li>
 
             </ul>
           </li>
@@ -110,7 +109,7 @@
 
             </ul>
           </li>
-              </ul>
+        </ul>
       </section>
       <!-- /.sidebar -->
     </aside>
@@ -120,27 +119,23 @@
         <h1>
          Trang admin
        </h1>
-
      </section>
-
-    
-
      @yield('backend')
 
      <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
    <footer class="main-footer">
-  </footer>
-  <!-- jQuery 3 -->
-  <script type="text/javascript" src="{{url('/')}}/backend/js/jquery.min.js"></script>
+   </footer>
+   <!-- jQuery 3 -->
+   <script type="text/javascript" src="{{url('/')}}/backend/js/jquery.min.js"></script>
 
-  <script type="text/javascript" src="{{url('/')}}/backend/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="{{url('/')}}/backend/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="{{url('/')}}/backend/js/adminlte.min.js"></script>
+   <script type="text/javascript" src="{{url('/')}}/backend/js/adminlte.min.js"></script>
 
-  <script type="text/javascript" src="{{url('/')}}/backend/js/fastclick.js"></script>
-  <script>
+   <script type="text/javascript" src="{{url('/')}}/backend/js/fastclick.js"></script>
+   <script>
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

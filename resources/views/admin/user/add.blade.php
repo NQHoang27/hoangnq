@@ -14,7 +14,7 @@
     @endif
     <div class="panel-body">
         <div class="row">
-            <form action="{{route('them-tai-khoan')}}" method="POST" role="form">
+            <form action="{{route('user.store')}}" method="POST" role="form">
                 {!! csrf_field()!!}
                 <div class="col-md-9">
                     <div class="form-group">
@@ -40,7 +40,7 @@
                         <input type="password" class="form-control" name="password" >
                         @if($errors->has('password'))
                         <div class="help-block" style="color: red">
-                            {!!$errors->first('pasword')!!}
+                            {!!$errors->first('password')!!}
                         </div>
                         @endif
                     </div>
@@ -49,22 +49,33 @@
                         <input type="password" class="form-control" name="re_password" >
                         @if($errors->has('re_password'))
                         <div class="help-block" style="color: red">
-                            {!!$errors->first('re_pasword')!!}
+                            {!!$errors->first('re_password')!!}
                         </div>
                         @endif
                     </div>
-                 
+
                     <div class="form-group">
                         <label for="">Team</label>
-                        <select name="parent" id="inputStatus" class="form-control" required="required"  value="{{old('parent')}}">
+                        <select name="id_teams" id="inputStatus" class="form-control" required="required"  value="{{old('id_teams')}}">
                             <option value="0">--Chọn team--</option>
-                      
+                            @foreach($listTeam as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
                         </select>
+                        @if($errors->has('id_teams'))
+                        <div class="help-block" style="color: red">
+                            {!!$errors->first('id_teams')!!}
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="form-inline text-center">
+                        <button type="submit" class="btn btn-primary">Thêm</button>
                     </div>
 
                 </div>
 
-               
+
             </form>
         </div>
     </div>

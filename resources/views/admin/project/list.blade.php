@@ -3,7 +3,7 @@
 @section('backend')
 <div class="panel panel-primary" style="margin:0 10px;margin-top: 20px">
 	<div class="panel-heading">
-		<h3 class="panel-title">Danh dự án</h3>
+		<h3 class="panel-title">Có: <b>{{$countProject}}</b> dự án</h3>
 	</div>
 	<div class="panel-body">
 		<form action="" class="form-inline"  role="form">
@@ -12,15 +12,11 @@
 			</div>
 			<button type="submit" class="btn btn-primary" ><i class="fa fa-search"></i></button>
 			<div class="form-group">
-
 				<a href="{{route('them-project')}}" class="btn btn-success fa  fa-plus">  Thêm mới</a>
 				<a href="{{route('project')}}" class="btn btn-success fa  fa-address-card"> Dự án</a>
-
 			</div>
 		</form>
-
 	</div>
-
 	@if(Session::has('message'))
 	<div class="alert alert-success">{!! Session::get('message') !!}</div>
 	@endif
@@ -37,20 +33,16 @@
 			@foreach($listProject as $item)
 			<tr>
 				<td>{{$loop->iteration}}</td>
-				<td width="100px">{!! $item->name !!}</td>
+				<td>{!! $item->name !!}</td>
 				
 				<td>
-					@if($item->status==1)
-						{{"Hiện"}}
-						@else
-						{{"Ẩn"}}
-					@endif
+					{{$item->id_user}}
 
 				</td>
-				<td width="130px">
+				<td>
 					<a href="{{route('sua-project',$item->id)}}" title="" class="label label-primary fa  fa-pencil">Sửa</a>
-						{!! csrf_field() !!}
-						{{method_field('DELETE')}}
+					{!! csrf_field() !!}
+					{{method_field('DELETE')}}
 					<a href="{{route('xoa-project',$item->id)}}"  class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không?')"><i class="fa fa-trash"></i>Xóa</a>
 				</td>
 			</tr>
@@ -62,6 +54,4 @@
 <div class="form-group text-center">
 	{{ $listProject->links() }}
 </div>
-
-
 @stop()

@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $table='projects';
+    public $table = "projects";
+    
+    protected $fillable = [
+		'name','id_user'
+	];
      public function scopeSearch($query){
 
         if(empty(request()->search)){

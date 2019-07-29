@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\TeamRequest;
 use App\Http\Controllers\Controller;
 use App\Model\Team;
 use DB;
@@ -15,94 +15,78 @@ class TeamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-     
+    {     
       $team = DB::table('teams')->count();
-      $listTeam = Team::orderBy('id','DESC')->search()->paginate(6);
-      return view('admin.team.list',compact('listTeam','team'));
+      $listTeam = Team::orderBy('id', 'DESC')->search()->paginate(6);
+      return view('admin.team.list', compact('listTeam', 'team'));
     }
 
     /**
-     Thêm mới người dùng
+     * Create a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-     public function add(Request $request)
-     {
-      $listTeam=Team::all();
-      return view('admin.team.add',compact('listTeam'));
+    public function create()
+    {
+      $listTeam = Team::all();
+      return view('admin.team.add', compact('listTeam'));
     }
 
     /**
-     Thêm mới người dùng
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
-     {
-
-
-
-      $this->validate($request,[
-        'name'=>'required',
-
-
-      ],[
-        'name.required'=>'Tên team không được để trống!',
-
-
-
-
-      ]);
-      $team= new Team();
-      $team->name=$request->name;
-      $team->leader=$request->leader;
+    public function store(TeamRequest $request)
+    {
+      $team = new Team();
+      $team->name = $request->name;
+      $team->leader = $request->leader;
       $team->save();
-
-
-      return redirect()->route('team')->with(['level'=>'success','message'=>'Thêm team thành công!']);
+      return redirect()->route('team')->with(['level' => 'success', 'message' => 'Thêm team thành công!']);
     }
 
     /**
-     Sửa thông tin người dùng
+     * Edit the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Model\Team  $id
+     * @return \Illuminate\Http\Response
      */
-     public function edit($id)
-     {
-       $listTeams = Team::find($id);
+    public function edit($id)
+    {
+      $editTeams = Team::find($id);
+      return view('admin.team.edit', ['editTeams' => $editTeams]);
+    }
 
-
-       return view('admin.team.edit',['listTeams'=>$listTeams]);
-     }
-
-    /**
-    Cập nhật thông tin người dùng
-     */
-    public function update( $id,Request $request)
-    {  
-      $this->validate($request,[
-        'name'=>'required',
-        'leader'=>'required',
-      ],[
-        'name.required'=>'Tên người dùng không được để trống!',
-        'leader.required'=>'Tên leader không được để trống!',
-        
-
-      ]); 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Model\Team  $id
+     * @return \Illuminate\Http\Response
+     */    
+     public function update($id, TeamRequest $request)
+     {  
       $team = Team::find($id);  
       $team->update([       
-        'name' => $request->get('name'), 
-        
-        'leader'=> $request->get('leader'),
+        'name' => $request->get('name'),         
+        'leader' => $request->get('leader'),
       ]);
-
-
-      
-
-      return redirect()->route('team')->with(['level'=>'success','message'=>'Cập nhật team thành công!']);
+      return redirect()->route('team')->with(['level' => 'success', 'message' => 'Cập nhật team thành công!']);
     }
 
     /**
-    Xóa người dùng
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Model\Team  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
       Team::destroy($id);
-      return redirect()->route('team')->with(['level'=>'success','message'=>'Xóa team thành công!']);
+      return redirect()->route('team')->with(['level' => 'success', 'message' => 'Xóa team thành công!']);
     }
-  }
+}
