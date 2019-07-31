@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Facades;
 
 class LanguageController extends Controller
 {
@@ -24,9 +25,9 @@ class LanguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function testFacade()
     {
-        //
+        echo Demo::getFacadeAccessor();
     }
 
     /**

@@ -92,7 +92,9 @@ class UserController extends Controller
     public function update($id, UserRequest $request)
     {  
       $data = $request->all();
-      $this->user->createOrUpdate($id, $data);
+      // $this->user->createOrUpdate($id, $data);
+      
+      User::updateOrCreate(['id' => $id], $data);
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật tài khoản thành công!']);
     }
 

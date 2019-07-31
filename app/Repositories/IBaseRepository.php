@@ -39,4 +39,5 @@ interface IBaseRepository
      */
     public function delete($id);
 
+    public function updateOrCreate(array $updateConditions, array $data);
 }

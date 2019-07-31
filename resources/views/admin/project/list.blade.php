@@ -18,7 +18,7 @@
 		</form>
 	</div>
 	@if(Session::has('message'))
-	<div class="alert alert-success">{!! Session::get('message') !!}</div>
+	<div class="alert alert-success">{!! Session::get('message') !!}&times;</div>
 	@endif
 	<table class="table table-hover">
 		<thead>

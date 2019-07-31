@@ -20,13 +20,11 @@
 					<div class="form-group">
 						<label for="">Tên team</label>
 						<input type="text" class="form-control" name="name" placeholder="Nhập tên team" >
-
 						@if($errors->has('name'))
 						<div class="help-block" style="color: red">
 							{!!$errors->first('name')!!}
 						</div>
 						@endif
-
 					</div>
 						<div class="form-group">
 						<label for="">Tên leader</label>
@@ -37,11 +35,8 @@
 							{!!$errors->first('leader')!!}
 						</div>
 						@endif
-
 					</div>				
-
-				</div>
-				
+				</div>				
 				<div class="form-inline text-center">
 					<button type="submit" class="btn btn-primary">Thêm</button>
 				</div>

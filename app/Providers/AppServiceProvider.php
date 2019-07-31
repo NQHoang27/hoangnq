@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\User;
+use App\Model\Team;
+use App\Model\Project;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Contracts\IUserRepository;
 use App\Repositories\Contracts\IProjectRepository;
@@ -31,9 +33,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(IUserRepository::class, UserRepository::class);
-        $this->app->bind(IProjectRepository::class, ProjectRepository::class);
-        $this->app->bind(ITeamRepository::class, TeamRepository::class);
-        
+        $this->app->bind(ITeamRepository::class, function () {
+            return new TeamRepository(new Team());
+        });       
+        $this->app->bind(IUserRepository::class, function () {
+            return new UserRepository(new User());
+        });
+        $this->app->bind(IProjectRepository::class, function () {
+            return new ProjectRepository(new Project());
+        });
     }
 }

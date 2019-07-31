@@ -42,12 +42,10 @@
         @foreach($listUser as $item)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>ID {!!$item->id!!}</td>
+            <td>ID_{!!$item->id!!}</td>
             <td>{!!$item->name!!}</td>
             <td>{!!$item->email!!}</td>
-            <td>
-             {{$item->id_teams}}
-            </td>
+            <td>{{$item->id_teams}}</td>
             <td>{{$item->created_at}}</td>
             <td>{{$item->updated_at}}</td>
             <td>
