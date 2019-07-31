@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Repositories\Contracts\ITeamRepository;
+use App\Http\Request\UserRequest;
 use App\Http\Requests\TeamRequest;
 use App\Http\Controllers\Controller;
 use App\Model\Team;
@@ -32,6 +33,7 @@ class TeamController extends Controller
      */
     public function index()
     {     
+      dd("Hoangnq");
       $team = DB::table('teams')->count();
       $listTeam = $this->team->getAll();
       return view('admin.team.list', compact('listTeam', 'team'));

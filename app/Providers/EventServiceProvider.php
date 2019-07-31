@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\User;
+use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -18,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        CreateUser::class => [
+            SendEmailUserCreate::class,
+        ],
     ];
 
     /**
@@ -29,6 +34,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        User::observe(UserObserver::class);
     }
 }

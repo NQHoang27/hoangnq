@@ -2,6 +2,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Repositories\IBaseRepository;
+use App\Http\Request\ProjectRequest;
 
 interface IProjectRepository extends IBaseRepository 
 {

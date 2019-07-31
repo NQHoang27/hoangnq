@@ -38,13 +38,17 @@
 				</div>
 				<div class="form-group">
 					<label for="">Team</label>
-					<select name="id_teams" id="inputStatus" class="form-control" required="required"  value="{{$listUsers->id_teams}}">
-						<option value="0">--Chọn team--</option>
+					<select name="id_teams" class="form-control">
+						<option>--Chọn team--</option>
 						@foreach($listTeam as $item)
-						<option value="{{$item->id}}">{{$item->name}}</option>
+						<option value="{{$item->id}}" @if($listUsers->id_teams == $item->id) selected @endif>{{$item->name}}</option>
 						@endforeach
-
 					</select>
+					@if($errors->has('id_teams'))
+					<div class="help-block" style="color: red">
+						{!!$errors->first('id_teams')!!}
+					</div>
+					@endif
 				</div>
 				<div class="form-group">
 					<label for="">Mật khẩu mới</label>
@@ -64,14 +68,10 @@
 					</div>
 					@endif
 				</div>
-
-
 				<div class="text-center panel-footer">
 					<button type="submit" class="btn btn-primary">Cập nhật</button>
 				</div>
-			</div>
-			
-			
+			</div>						
 		</form>
 	</div>
 </div>

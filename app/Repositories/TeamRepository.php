@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Model\Team;
 use App\Repositories\Contracts\ITeamRepository;
-
+use App\Http\Request\TeamRequest;
 class TeamRepository extends AbstractRepository implements ITeamRepository
 {
 	/**

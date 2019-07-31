@@ -2,7 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\IUserRepository;
+// use App\Repositories\Contracts\IUserRepository;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository implements IBaseRepository
 {
@@ -14,9 +15,9 @@ abstract class AbstractRepository implements IBaseRepository
     /**
      * AbstractRepository constructor.
      */
-    public function __construct()
+    public function __construct(Model $model)
     {
-    	$this->setModel();
+        $this->_model = $model;
     }
 
     /**
@@ -101,6 +102,11 @@ abstract class AbstractRepository implements IBaseRepository
     	}
 
     	return false;
+    }
+
+    public function updateOrCreate(array $updateConditions, array $data)
+    {
+        return $this->model->updateOrCreate($updateConditions, $data);
     }
 }
 
