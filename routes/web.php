@@ -24,6 +24,9 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['c
 	require_once('user.php');
 	require_once('team.php');
 	require_once('project.php');
+	Route::get('demo-pusher','LanguageController@getPusher');
+	Route::get('fire-event','LanguageController@fireEvent')->name('load');
+
 });
 Auth::routes();
 Route::get('/logout', function () {

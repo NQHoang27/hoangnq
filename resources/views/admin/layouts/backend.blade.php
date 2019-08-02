@@ -74,8 +74,8 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{route('user.index')}}"><i class="fa fa-dashboard "></i> Danh sách tài khoản</a></li>
-              <li><a href="{{route('user.create')}}"><i class="fa fa-circle-o"></i> Thêm tài khoản</a></li>
+              <li><a href="{{route('tai-khoan')}}"><i class="fa fa-dashboard "></i> Danh sách tài khoản</a></li>
+              <li><a href="{{route('them-tai-khoan')}}"><i class="fa fa-circle-o"></i> Thêm tài khoản</a></li>
 
             </ul>
           </li>

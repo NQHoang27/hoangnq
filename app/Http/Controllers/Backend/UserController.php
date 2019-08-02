@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-
+use App\Repositories\Contracts\IUserRepository;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Model\User;
@@ -12,6 +12,14 @@ use DB;
 
 class UserController extends Controller
 {
+  public $successStatus = 200;
+  protected $user;
+
+  public function __construct(IUserRepository $user)
+  {
+    $this->user = $user;
+  }
+
     /**
     * Display a listing of the resource.
     *
@@ -20,7 +28,7 @@ class UserController extends Controller
     public function index()
     {
       $countUsers = DB::table('users')->count();
-      $listUser = User::where('id_teams','>=',0)->search()->paginate(6);
+      $listUser = $this->user->getAll();
       return view('admin.user.list', compact('listUser', 'countUsers'));
     }
 
@@ -39,12 +47,7 @@ class UserController extends Controller
     */
     public function store(UserRequest $request)
     {
-      $user = new User();
-      $user->name = $request->name;
-      $user->email = $request->email;
-      $user->password = Hash::make($request->password);
-      $user->id_teams = $request->id_teams;
-      $user->save();
+      
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Thêm mới người dùng thành công!']);
     }
 
@@ -61,6 +64,16 @@ class UserController extends Controller
       return view('admin.user.edit', ['listUsers' => $listUsers, 'listTeam' => Team::where('id', '<>', $id)->get()]);
     }
 
+    // public function saveUser($id = null)
+    // {
+    //   if($id) {
+    //     $this->user->createOrUpdate($id);
+    //   }
+    //   else {
+    //     $this->user->createOrUpdate();
+    //   }
+    //     return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
+    // }
     /**
     * Update the specified resource in storage.
     *
@@ -70,13 +83,7 @@ class UserController extends Controller
     */
     public function update($id, UserRequest $request)
     {  
-      $user = User::find($id);  
-      $user->update([       
-        'name' => $request->get('name'), 
-        'email' => $request->get('email'),
-        'password' => bcrypt($request->password),
-        'id_teams' => $request->get('id_teams'),
-      ]);
+      $this->user->update();
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
     }
 

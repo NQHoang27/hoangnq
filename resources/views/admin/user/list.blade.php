@@ -12,8 +12,8 @@
         <button type="submit" class="btn btn-primary" ><i class="fa fa-search"></i></button>
         <div class="form-group">
 
-            <a href="{{route('user.create')}}" class="btn btn-success fa  fa-plus"> Thêm mới</a>
-            <a href="{{route('user.index')}}" class="btn btn-success fa  fa-address-card"> Danh Sách</a>
+            <a href="{{route('them-tai-khoan')}}" class="btn btn-success fa  fa-plus"> Thêm mới</a>
+            <a href="{{route('tai-khoan')}}" class="btn btn-success fa  fa-address-card"> Danh Sách</a>
         </div>
     </form>
 </div>
@@ -49,17 +49,17 @@
             </td>
             <td>{{$item->created_at}}</td>
             <td>
-                <a href="{{route('user.edit',$item->id)}}" title="" class="btn btn-primary">Sửa</a>
+                <a href="{{route('sua-tai-khoan',$item->id)}}" title="" class="btn btn-primary">Sửa</a>
                 {!! csrf_field() !!}
                 {{method_field('DELETE')}}
-                <a href="{{route('user.destroy',$item->id)}}"  class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không?')"><i class="fa fa-trash"></i></a>
+                <a href="{{route('xoa-tai-khoan',$item->id)}}"  class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không?')"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-<div class="text-center">
+{{-- <div class="text-center">
     {!! $listUser->render() !!}
-</div>
+</div> --}}
 </div>
 @stop()

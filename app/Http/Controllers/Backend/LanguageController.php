@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Events\DemoPusherEvent;
 class LanguageController extends Controller
 {
     /**
@@ -19,6 +19,15 @@ class LanguageController extends Controller
         return redirect()->back();
     }
 
+    public function getPusher(){
+    // gọi ra trang view demo-pusher.blade.php
+        return view("admin.pusher.demo_pusher");
+    }
+    public function fireEvent(){
+    // Truyền message lên server Pusher
+        event(new DemoPusherEvent("Xin chào, Em đang ở đây!"));
+        return view('admin.pusher.testevent');
+    }
     /**
      * Show the form for creating a new resource.
      *
