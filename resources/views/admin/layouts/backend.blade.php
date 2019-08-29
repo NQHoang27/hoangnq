@@ -40,9 +40,9 @@
               </a>
             </li>
             <li>
-              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              <a href="{!! route('user.change-language', ['en']) !!}">English</a>
-              <a href="{!! route('user.change-language', ['vi']) !!}">Vietnam</a>
+              <a href="#" class="dropdown"><i class="fa fa-gears"></i></a>
+{{--               <a href="{!! route('user.change-language', ['en']) !!}">English</a>
+              <a href="{!! route('user.change-language', ['vi']) !!}">Vietnam</a> --}}
             </li>
           </ul>
         </div>
@@ -106,6 +106,20 @@
             <ul class="treeview-menu">
               <li><a href="{{route('team')}}"><i class="fa fa-circle-o"></i> Danh sách</a></li>
               <li><a href="{{route('them-team')}}"><i class="fa fa-circle-o"></i> Thêm team</a></li>
+
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="{{route('team')}}">
+              <i class="fa fa-table"></i>
+              <span>Pusher</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{route('load')}}"><i class="fa fa-circle-o"></i>Send_data</a></li>
+              <li><a href="{{route('demo')}}"><i class="fa fa-circle-o"></i> View_data</a></li>
 
             </ul>
           </li>

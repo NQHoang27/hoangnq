@@ -29,5 +29,4 @@ class UserRepository extends AbstractRepository implements IUserRepository
 	public function createOrUpdate($id = null) {
 		
 	}
-
 }

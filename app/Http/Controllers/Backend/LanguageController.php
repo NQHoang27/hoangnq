@@ -23,9 +23,19 @@ class LanguageController extends Controller
     // gọi ra trang view demo-pusher.blade.php
         return view("admin.pusher.demo_pusher");
     }
-    public function fireEvent(){
+
+    public function fireEvent1(){
     // Truyền message lên server Pusher
-        event(new DemoPusherEvent("Xin chào, Em đang ở đây!"));
+        // event(new DemoPusherEvent("Xin chào, Em đang ở đây!"));
+        return view('admin.pusher.testevent');
+    }
+
+     public function fireEvent(Request $request){
+    // Truyền message lên server Pusher
+        // dd($request->body);
+        $body = $request->body;
+        
+        event(new DemoPusherEvent($body));
         return view('admin.pusher.testevent');
     }
     /**

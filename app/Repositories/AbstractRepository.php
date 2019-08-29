@@ -42,7 +42,9 @@ abstract class AbstractRepository implements IBaseRepository
     public function getAll()
     {
 
-    	return $this->_model->all();
+    	return $this->_model->select('*')
+            ->orderBy($this->_model->getKeyName())
+            ->paginate(10);
     }
 
     /**

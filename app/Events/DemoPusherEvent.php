@@ -14,15 +14,15 @@ class DemoPusherEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $body;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($body)
     {
-        $this->message = $message;
+        $this->body = $body;
     }
 
     /**
@@ -34,4 +34,12 @@ class DemoPusherEvent implements ShouldBroadcast
     {
         return new Channel('channel-demo-real-time');
     }
+
+    // public function broadcastWith()
+    // {
+    //     return[
+    //         'body' => $this->$request->body;
+    //     ];
+    // }
 }
+

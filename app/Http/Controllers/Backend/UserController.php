@@ -10,15 +10,20 @@ use App\Model\Team;
 use Hash;
 use DB;
 
-class UserController extends Controller
-{
-  public $successStatus = 200;
-  protected $user;
 
-  public function __construct(IUserRepository $user)
-  {
-    $this->user = $user;
-  }
+class UserController extends Controller 
+{
+    /**
+     * [$successStatus description]
+     * @var integer
+     */
+    public $successStatus = 200;
+    protected $user;
+
+    public function __construct(IUserRepository $user)  
+    {
+      $this->user = $user;
+    }
 
     /**
     * Display a listing of the resource.
@@ -47,7 +52,6 @@ class UserController extends Controller
     */
     public function store(UserRequest $request)
     {
-      
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Thêm mới người dùng thành công!']);
     }
 
@@ -64,16 +68,6 @@ class UserController extends Controller
       return view('admin.user.edit', ['listUsers' => $listUsers, 'listTeam' => Team::where('id', '<>', $id)->get()]);
     }
 
-    // public function saveUser($id = null)
-    // {
-    //   if($id) {
-    //     $this->user->createOrUpdate($id);
-    //   }
-    //   else {
-    //     $this->user->createOrUpdate();
-    //   }
-    //     return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Cập nhật thành viên thành công!']);
-    // }
     /**
     * Update the specified resource in storage.
     *
@@ -98,4 +92,4 @@ class UserController extends Controller
       User::destroy($id);
       return redirect()->route('tai-khoan')->with(['level' => 'success', 'message' => 'Xóa tài khoản thành công!']);
     }  
-  }
+ }

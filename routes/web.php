@@ -24,9 +24,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['c
 	require_once('user.php');
 	require_once('team.php');
 	require_once('project.php');
-	Route::get('demo-pusher','LanguageController@getPusher');
-	Route::get('fire-event','LanguageController@fireEvent')->name('load');
-
+	Route::get('demo-pusher','LanguageController@getPusher')->name('demo');
+	Route::get('fire-event','LanguageController@fireEvent1')->name('load');
+	Route::post('fire-event','LanguageController@fireEvent')->name('load.post');
+	Route::get('import-file', 'ExcelController@import')->name('import');
+	Route::post('import-file', 'ExcelController@importExcel')->name('insert.users');
+	Route::get('export-file', 'ExcelController@export')->name('export');
 });
 Auth::routes();
 Route::get('/logout', function () {

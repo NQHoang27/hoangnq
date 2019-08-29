@@ -44,7 +44,7 @@ class UserEloquentRepository extends EloquentRepository implements IUserReposito
             $user->update([       
                 'name' => $request->get('name'), 
                 'email' => $request->get('email'),
-                'password' => bcrypt($request->password),
+                'password' => Hash::make($request->password),
                 'id_teams' => $request->get('id_teams'),
             ]);
         }

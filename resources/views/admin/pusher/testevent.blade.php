@@ -7,12 +7,13 @@
 	</div>
 	<div class="panel-body">
 		  <a href="{{route('load')}}"><button type="button" class="btn btn-default">Load trang</button></a>
-      <form action="" method="POST" role="form">
+      <form action="{{route('load.post')}}" method="POST" role="form">
+          {!! csrf_field() !!}
         <legend>Form title</legend>
       
         <div class="form-group">
           <label for="">label</label>
-          <input type="text" class="form-control" id="" placeholder="Input field">
+          <input type="text" class="form-control" name="body" placeholder="Nhập nội dung vào đây!">
         </div> 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

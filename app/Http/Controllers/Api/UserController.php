@@ -29,7 +29,6 @@ class UserController extends Controller
     */
     public function index()
     {
-        dd("hoangnq");
         $countUsers = DB::table('users')->count();
         $listUser = $this->user->getAll();
         return view('admin.user.list', compact('listUser', 'countUsers'));
